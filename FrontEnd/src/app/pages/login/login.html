@@ -1,32 +1,71 @@
-<div class="login-container">
-  <h2>Iniciar Sesión</h2>
-  <form (ngSubmit)="login()" #loginForm="ngForm">
-    <div class="form-group">
-      <label for="email">Correo electrónico</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        [(ngModel)]="email"
-        required
-        placeholder="usuario@correo.com"
+<div class="login-wrapper">
+  <!-- IZQUIERDA -->
+  <div class="login-left">
+    <div class="logo-container">
+      <img
+        src="https://hospitalclinicomagallanes.cl/wp-content/uploads/2019/09/IMG_5211.jpg"
+        alt="Hospital Clínico de Magallanes"
       />
     </div>
 
-    <div class="form-group">
-      <label for="password">Contraseña</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        [(ngModel)]="password"
-        required
-        placeholder="••••••••"
-      />
+    <div class="welcome-text">
+      <h1>¡Bienvenido a SoporteTickets!</h1>
+      <p>
+        Gestiona y da seguimiento a tus solicitudes fácilmente.<br />
+        Nuestro sistema está diseñado para mejorar la atención y resolver tus
+        problemas de manera eficiente.
+      </p>
     </div>
 
-    <button type="submit" [disabled]="!loginForm.form.valid">
-      Entrar
-    </button>
-  </form>
+    <img
+      class="hospital-img"
+      src="https://hospitalclinicomagallanes.cl/wp-content/uploads/2019/09/IMG_5211.jpg"
+      alt="Hospital Clínico de Magallanes"
+    />
+  </div>
+
+  <!-- DERECHA -->
+  <div class="login-right">
+    <div class="form-container">
+      <h2>Bienvenido de nuevo!</h2>
+      <p>
+        Accede para gestionar tus tickets y mantener el control de tus
+        solicitudes.
+      </p>
+
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <label for="email">Correo electrónico</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          placeholder="Escribe tu correo"
+        />
+
+        <label for="password">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          placeholder="Escribe tu contraseña"
+        />
+
+        <div class="options">
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" [disabled]="!loginForm.form.valid">
+          Iniciar sesión
+        </button>
+      </form>
+
+      <p class="register-link">
+        ¿No tienes una cuenta? <a href="#">Solicítala aquí</a>
+      </p>
+    </div>
+  </div>
 </div>
