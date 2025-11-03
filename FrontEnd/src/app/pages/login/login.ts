@@ -17,7 +17,7 @@ export class Login {
   constructor(private router: Router) {}
 
   login() {
-    if (this.email === 'admin@example.com' && this.password === '1234') {
+    if (this.email === 'admin@example.com' && this.password === '12345') {
       alert('Inicio de sesión exitoso');
       this.router.navigate(['/home']);
     } else {
