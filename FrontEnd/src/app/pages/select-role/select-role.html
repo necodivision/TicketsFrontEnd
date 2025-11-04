@@ -1,0 +1,15 @@
+<div class="select-role-wrapper">
+  <div class="role-card">
+    <h1>Bienvenido</h1>
+    <p class="email">{{ user?.email }}</p>
+
+    <div class="role-box">
+      <p>Tu tipo de cuenta es:</p>
+      <span class="role">{{ user?.role }}</span>
+    </div>
+
+    <button class="btn-continue" (click)="continue()">Continuar</button>
+
+    <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+  </div>
+</div>

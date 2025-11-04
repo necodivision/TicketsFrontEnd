@@ -1,0 +1,51 @@
+<!-- src/app/pages/forgot/forgot.html -->
+<div class="forgot-wrapper">
+  <!-- IZQUIERDA (misma estética que en login) -->
+  <div class="forgot-left">
+    <div class="logo-container-small">
+      <img src="https://hospitalclinicomagallanes.cl/wp-content/uploads/2019/09/IMG_5211.jpg" alt="logo" />
+    </div>
+
+    <div class="welcome-text">
+      <h1>¡Bienvenido a SoporteTickets!</h1>
+      <p>
+        Solicita el restablecimiento de contraseña introduciendo el correo asociado a tu cuenta.
+        Recibirás un correo con instrucciones para cambiarla.
+      </p>
+    </div>
+
+    <img class="hospital-img" src="https://hospitalclinicomagallanes.cl/wp-content/uploads/2019/09/IMG_5211.jpg" alt="hospital" />
+  </div>
+
+  <!-- DERECHA (formulario) -->
+  <div class="forgot-right">
+    <div class="form-container">
+      <h2>Recuperar contraseña</h2>
+      <p>Ingrese su correo y le enviaremos un enlace para restablecer su contraseña.</p>
+
+      <form (ngSubmit)="submit()" #f="ngForm" novalidate>
+        <label for="email">Correo electrónico</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Escribe tu correo"
+          [(ngModel)]="email"
+          required
+          email
+        />
+
+        <div class="error" *ngIf="error">{{ error }}</div>
+        <div class="message" *ngIf="message">{{ message }}</div>
+
+        <button type="submit" [disabled]="loading || !f.form.valid">
+          {{ loading ? 'Enviando...' : 'Enviar instrucciones' }}
+        </button>
+      </form>
+
+      <p class="back-link">
+        <a routerLink="/login">Volver al inicio de sesión</a>
+      </p>
+    </div>
+  </div>
+</div>

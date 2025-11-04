@@ -33,7 +33,7 @@
         solicitudes.
       </p>
 
-      <form (ngSubmit)="login()" #loginForm="ngForm">
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <label for="email">Correo electrónico</label>
         <input
           type="email"
@@ -54,8 +54,12 @@
           placeholder="Escribe tu contraseña"
         />
 
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+
         <div class="options">
-          <a href="#">¿Olvidaste tu contraseña?</a>
+          <a routerLink="/forgot">¿Olvidaste tu contraseña?</a>
         </div>
 
         <button type="submit" [disabled]="!loginForm.form.valid">
