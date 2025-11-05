@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-select-role',
@@ -33,13 +33,13 @@ export class SelectRoleComponent implements OnInit {
         this.router.navigate(['/dashboard-super']);
         break;
       case 'Administrador':
-        this.router.navigate(['/dashboard-admin']);
+        this.router.navigate(['/admin']);
         break;
-      case 'Soporte':
-        this.router.navigate(['/dashboard-soporte']);
+      case 'Staff':
+        this.router.navigate(['/staff']);
         break;
-      case 'Cuenta':
-        this.router.navigate(['/dashboard-cuenta']);
+      case 'Usuario':
+        this.router.navigate(['/user']);
         break;
       default:
         this.router.navigate(['/login']);

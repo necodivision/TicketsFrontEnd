@@ -11,8 +11,8 @@ export class AuthService {
   private mockUsers = [
     { email: 'admin@example.com', password: '123456', role: 'Administrador' },
     { email: 'super@example.com', password: '123456', role: 'Super Administrador' },
-    { email: 'soporte@example.com', password: '123456', role: 'Soporte' },
-    { email: 'cuenta@example.com', password: '123456', role: 'Cuenta' }
+    { email: 'staff@example.com', password: '123456', role: 'Staff' },
+    { email: 'user@example.com', password: '123456', role: 'Usuario' }
   ];
 
   private loggedUser: any = null;
