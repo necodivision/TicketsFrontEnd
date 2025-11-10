@@ -10,7 +10,6 @@ export class AuthService {
   // Usuarios de prueba (mock)
   private mockUsers = [
     { email: 'admin@example.com', password: '123456', role: 'Administrador' },
-    { email: 'super@example.com', password: '123456', role: 'Super Administrador' },
     { email: 'staff@example.com', password: '123456', role: 'Staff' },
     { email: 'user@example.com', password: '123456', role: 'Usuario' }
   ];
