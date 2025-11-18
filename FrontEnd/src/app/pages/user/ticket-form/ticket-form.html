@@ -1,0 +1,54 @@
+<div class="form-wrapper">
+
+  <div class="form-card">
+
+    <h2 class="form-title">Crear Ticket</h2>
+
+    <form (ngSubmit)="submit()" #f="ngForm">
+
+      <!-- ASUNTO -->
+      <div class="form-group">
+        <label>Asunto</label>
+        <input
+          type="text"
+          name="asunto"
+          [(ngModel)]="model.asunto"
+          required
+          placeholder="Escribe el asunto del problema"
+        >
+      </div>
+
+      <!-- DESCRIPCIÓN -->
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea
+          name="descripcion"
+          [(ngModel)]="model.descripcion"
+          rows="5"
+          placeholder="Describe tu problema con detalle"
+          required
+        ></textarea>
+      </div>
+
+      <!-- NOMBRE -->
+      <div class="form-group">
+        <label>Nombre</label>
+        <input
+          type="text"
+          name="author"
+          [(ngModel)]="model.author"
+          placeholder="Tu nombre"
+          required
+        >
+      </div>
+
+
+      <button class="submit-btn" [disabled]="!f.valid">
+        Enviar Ticket
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

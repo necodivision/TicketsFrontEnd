@@ -1,45 +1,73 @@
 import { Routes } from '@angular/router';
-import { Admin } from './pages/admin/admin';
-import { Staff } from './pages/staff/staff';
-import { User } from './pages/user/user';
 
 export const routes: Routes = [
-  // Redirección inicial
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
-  // Página de inicio de sesión
+  // LOGIN
   {
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login').then(m => m.LoginComponent)
   },
-
-  // Página de recuperación de contraseña
   {
     path: 'forgot',
     loadComponent: () =>
       import('./pages/login/forgot/forgot').then(m => m.Forgot)
   },
-
-  // Página de selección de rol (se mostrará después del login)
   {
     path: 'select-role',
     loadComponent: () =>
       import('./pages/login/select-role/select-role').then(m => m.SelectRoleComponent)
   },
 
-  // Página de usuario
-  { path: 'user', component:User },
+  // USER
+  {
+    path: 'user',
+    loadComponent: () =>
+      import('./pages/user/user').then(m => m.User),
 
-  // Página de staff
-  { path: 'staff', component:Staff },
-    
-  // Página de administrador
-  { path: 'admin', component:Admin },
-  
-    // Página de super-administrador
-  { path: 'super', component:Admin },
+    children: [
+      {
+        path: 'panel',
+        loadComponent: () =>
+          import('./pages/user/user-panel/user-panel').then(m => m.UserPanel)
+      },
 
-  // Página de error o ruta no encontrada
+      {
+        path: 'my-tickets',
+        loadComponent: () =>
+          import('./pages/user/my-tickets/my-tickets').then(m => m.MyTickets)
+      },
+
+      {
+        path: 'ticket/:id',
+        loadComponent: () =>
+          import('./pages/user/tickets-detail/tickets-detail')
+            .then(m => m.TicketsDetailComponent)
+      },
+
+      { path: '', redirectTo: 'panel', pathMatch: 'full' }
+    ]
+  },
+
+  // STAFF / ADMIN
+  {
+    path: 'staff',
+    loadComponent: () =>
+      import('./pages/staff/staff').then(m => m.Staff)
+  },
+
+  {
+    path: 'admin',
+    loadComponent: () =>
+      import('./pages/admin/admin').then(m => m.Admin)
+  },
+
+  {
+    path: 'super',
+    loadComponent: () =>
+      import('./pages/admin/admin').then(m => m.Admin)
+  },
+
   { path: '**', redirectTo: 'login' }
 ];

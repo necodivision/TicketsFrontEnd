@@ -1,0 +1,74 @@
+<div class="panel-wrapper">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo">Panel de Usuario</div>
+
+    <div class="avatar-box">
+      <img 
+        src="https://i.pinimg.com/1200x/89/fb/cd/89fbcd11c3edb7ba3c736ba112cc6811.jpg"
+        alt="Avatar">
+      <span class="username">Usuario</span>
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="panel-content">
+
+    <!-- Acciones -->
+    <div class="actions">
+      <button class="btn" (click)="goToTickets()">📄 Ver Tickets</button>
+      <button class="btn logout" (click)="logout()">⛔ Cerrar Sesión</button>
+    </div>
+
+    <!-- CARD DEL FORMULARIO -->
+    <div class="ticket-card">
+      <div class="card-header">Crear nuevo Ticket</div>
+
+      <div class="card-body">
+        <form [formGroup]="ticketForm" (ngSubmit)="submitTicket()">
+
+          <label>Asunto</label>
+          <input type="text" formControlName="asunto" placeholder="Ej: Error en mi cuenta">
+          <div class="error" *ngIf="ticketForm.get('asunto')?.invalid && (ticketForm.get('asunto')?.touched || ticketForm.get('asunto')?.dirty)">
+            El asunto es obligatorio
+          </div>
+
+          <label>Descripción</label>
+          <textarea rows="5" formControlName="descripcion" placeholder="Describe tu situación..."></textarea>
+          <div class="error" *ngIf="ticketForm.get('descripcion')?.invalid && (ticketForm.get('descripcion')?.touched || ticketForm.get('descripcion')?.dirty)">
+            La descripción es obligatoria
+          </div>
+
+          <label>Nombre</label>
+          <input type="text" formControlName="author" placeholder="Tu nombre">
+          <div class="error" *ngIf="ticketForm.get('author')?.invalid && (ticketForm.get('author')?.touched || ticketForm.get('author')?.dirty)">
+            El nombre es obligatorio
+          </div>
+
+          <label>Teléfono</label>
+          <input type="tel" formControlName="telefono" placeholder="+56 9 1234 5678">
+          <div class="error" *ngIf="ticketForm.get('telefono')?.invalid && (ticketForm.get('telefono')?.touched || ticketForm.get('telefono')?.dirty)">
+            Ingresa un teléfono válido
+          </div>
+
+          <label>Ubicación</label>
+          <select formControlName="ubicacion">
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="Placeholder 1">Placeholder 1</option>
+            <option value="Placeholder 2">Placeholder 2</option>
+          </select>
+          <div class="error" *ngIf="ticketForm.get('ubicacion')?.invalid && (ticketForm.get('ubicacion')?.touched || ticketForm.get('ubicacion')?.dirty)">
+            La ubicación es obligatoria
+          </div>
+
+          <button class="btn submit" type="submit" [disabled]="ticketForm.invalid">
+            Enviar Ticket
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

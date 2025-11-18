@@ -39,7 +39,7 @@ export class SelectRoleComponent implements OnInit {
         this.router.navigate(['/staff']);
         break;
       case 'Usuario':
-        this.router.navigate(['/user']);
+        this.router.navigate(['/user/panel']);
         break;
       default:
         this.router.navigate(['/login']);
