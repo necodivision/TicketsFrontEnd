@@ -72,6 +72,7 @@ export class AuthService {
    */
   getUserRole(): string | null {
     const user = this.getLoggedUser();
+    //console.log('getUserRole llamado, usuario:', user);
     return user ? user.role : null;
   }
 

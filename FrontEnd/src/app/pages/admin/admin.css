@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.role-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #111827;
+}
+
+.role-content {
+  flex: 1;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f6f8fc 0%, #eef2fb 100%);
+}

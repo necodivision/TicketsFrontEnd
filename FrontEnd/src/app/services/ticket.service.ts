@@ -8,7 +8,10 @@ export interface Ticket {
   telefono: string;
   ubicacion: string;
   date: string;
-  status: 'Abierto' | 'En proceso' | 'Resuelto';
+  status: 'Abierto' | 'En proceso' | 'Pausado' | 'Postergado' | 'Resuelto';
+  prioridad: 'Baja' | 'Media' | 'Alta';
+  unidad: 'Soporte' | 'Desarrollo' | 'Infraestructura';
+  asignado: 'Sin asignar' | string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -42,6 +45,9 @@ export class TicketService {
       telefono: data.telefono,
       ubicacion: data.ubicacion,
       status: 'Abierto',
+      prioridad: 'Baja',
+      unidad: 'Soporte',
+      asignado: 'Sin asignar',
       date: new Date().toLocaleString()
     };
 

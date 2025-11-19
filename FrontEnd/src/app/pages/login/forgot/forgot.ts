@@ -42,7 +42,7 @@ export class Forgot {
         }
       },
       error: (err) => {
-        console.error(err);
+        //nsole.error(err);
         this.loading = false;
         this.error = 'Error al intentar enviar. Intenta nuevamente más tarde.';
       }

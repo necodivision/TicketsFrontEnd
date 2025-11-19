@@ -1,0 +1,22 @@
+<nav class="sidebar" [class.collapsed]="collapsed">
+    <div class="sidebar-header">
+        <button class="toggle-btn" type="button" (click)="onToggle()" aria-label="Alternar menú">
+            <img [src]="collapsed ? '/menu-open.svg' : '/menu-close.svg'" alt="" />
+        </button>
+        <span class="brand" *ngIf="!collapsed">Menu Desplegable</span>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li *ngFor="let item of menuItems">
+            <a [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <img [src]="getIconPath(item.iconSrc)" [alt]="item.label" />
+                <span *ngIf="!collapsed">{{ item.label }}</span>
+            </a>
+        </li>
+    </ul>
+
+    <button class="logout-btn" type="button" (click)="logout()">
+        <img src="/logout.svg" alt="Salir" />
+        <span *ngIf="!collapsed">Salir</span>
+    </button>
+</nav>

@@ -18,6 +18,9 @@ export class SelectRoleComponent implements OnInit {
   ngOnInit() {
     this.user = this.authService.getLoggedUser();
 
+    // Log para verificar el usuario logueado
+    //console.log('Usuario logueado en select-role:', this.user);
+
     // Si no hay usuario logueado, redirigir al login
     if (!this.user) {
       this.router.navigate(['/login']);
@@ -27,21 +30,25 @@ export class SelectRoleComponent implements OnInit {
   continue() {
     const role = this.user.role;
 
+    // Log para verificar el rol y la redirección
+    //console.log('Rol del usuario:', role);
+
     // Simulación: cada tipo de rol te lleva a una ruta distinta
     switch (role) {
-      case 'Super Administrador':
-        this.router.navigate(['/dashboard-super']);
-        break;
       case 'Administrador':
-        this.router.navigate(['/admin']);
+        //console.log('Redirigiendo a /admin/panel');
+        this.router.navigate(['/admin/panel']);
         break;
       case 'Staff':
-        this.router.navigate(['/staff']);
+        //console.log('Redirigiendo a /staff/panel');
+        this.router.navigate(['/staff/panel']);
         break;
       case 'Usuario':
+        //console.log('Redirigiendo a /user/panel');
         this.router.navigate(['/user/panel']);
         break;
       default:
+        //console.log('Rol desconocido, redirigiendo a /login');
         this.router.navigate(['/login']);
     }
   }

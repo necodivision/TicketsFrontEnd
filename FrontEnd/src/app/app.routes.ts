@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { adminGuard } from './guards/admin.guard';
+import { staffGuard } from './guards/staff.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -50,23 +52,57 @@ export const routes: Routes = [
     ]
   },
 
-  // STAFF / ADMIN
+  // STAFF
   {
     path: 'staff',
     loadComponent: () =>
-      import('./pages/staff/staff').then(m => m.Staff)
+      import('./pages/staff/staff').then(m => m.Staff),
+    canActivateChild: [staffGuard],
+    children: [
+      {
+        path: 'panel',
+        loadComponent: () =>
+          import('./pages/staff/staff-panel/staff-panel').then(m => m.StaffPanel)
+      },
+            {
+        path: 'mis-tickets',
+        loadComponent: () =>
+          import('./pages/staff/staff-mis-tickets/staff-mis-tickets').then(m => m.StaffMisTickets)
+      },
+
+      { path: '', redirectTo: 'panel', pathMatch: 'full' }
+    ]
   },
 
+  // ADMIN
   {
     path: 'admin',
     loadComponent: () =>
-      import('./pages/admin/admin').then(m => m.Admin)
-  },
-
-  {
-    path: 'super',
-    loadComponent: () =>
-      import('./pages/admin/admin').then(m => m.Admin)
+      import('./pages/admin/admin').then(m => m.Admin),
+    canActivateChild: [adminGuard],
+    children: [
+      {
+        path: 'panel',
+        loadComponent: () =>
+          import('./pages/admin/admin-panel/admin-panel').then(m => m.AdminPanel)
+      },
+      {
+        path: 'mis-tickets',
+        loadComponent: () =>
+          import('./pages/admin/admin-mis-tickets/admin-mis-tickets').then(m => m.AdminMisTickets)
+      },
+      {
+        path: 'estadisticas',
+        loadComponent: () =>
+          import('./pages/admin/admin-estadisticas/admin-estadisticas').then(m => m.AdminEstadisticas)
+      },
+      {
+        path: 'equipo',
+        loadComponent: () =>
+          import('./pages/admin/admin-equipo/admin-equipo').then(m => m.AdminEquipo)
+      },
+      { path: '', redirectTo: 'panel', pathMatch: 'full' }
+    ]
   },
 
   { path: '**', redirectTo: 'login' }
