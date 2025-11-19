@@ -1,9 +1,9 @@
 <nav class="sidebar" [class.collapsed]="collapsed">
     <div class="sidebar-header">
-        <button class="toggle-btn" type="button" (click)="onToggle()" aria-label="Alternar menú">
-            <img [src]="collapsed ? '/menu-open.svg' : '/menu-close.svg'" alt="" />
+        <button class="toggle-btn" type="button" (click)="onToggle()">
+            <img [src]="collapsed ? '/menu-open.svg' : '/menu-close.svg'" alt="Menu" />
+            <span *ngIf="!collapsed">Menu</span>
         </button>
-        <span class="brand" *ngIf="!collapsed">Menu Desplegable</span>
     </div>
 
     <ul class="sidebar-menu">

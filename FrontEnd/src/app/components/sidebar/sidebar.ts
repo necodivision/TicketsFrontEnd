@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Inject, OnInit } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -18,9 +18,9 @@ interface SidebarItem {
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.css'],
 })
-export class Sidebar {
+export class Sidebar implements OnInit {
   @Input() role: SidebarRole = 'admin';
-  collapsed = false;
+  collapsed = true;
 
   private readonly icons = {
     panel: 'panel.svg',
@@ -43,7 +43,14 @@ export class Sidebar {
     ]
   };
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
+
+  ngOnInit(): void {
+    this.updateLayoutSpacing();
+  }
 
   get menuItems(): SidebarItem[] {
     return this.menuByRole[this.role] ?? [];
@@ -55,9 +62,15 @@ export class Sidebar {
 
   onToggle() {
     this.collapsed = !this.collapsed;
+    this.updateLayoutSpacing();
   }
 
   logout() {
     this.authService.logout();
+  }
+
+  private updateLayoutSpacing() {
+    const width = this.collapsed ? '80px' : '240px';
+    this.document.documentElement.style.setProperty('--sidebar-width', width);
   }
 }

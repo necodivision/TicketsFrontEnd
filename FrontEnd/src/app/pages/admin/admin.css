@@ -3,13 +3,13 @@
 }
 
 .role-layout {
-  display: flex;
   min-height: 100vh;
   background: #111827;
+  padding-left: var(--sidebar-width, 80px);
+  transition: padding-left 0.2s ease;
 }
 
 .role-content {
-  flex: 1;
   min-height: 100vh;
   background: linear-gradient(180deg, #f6f8fc 0%, #eef2fb 100%);
 }

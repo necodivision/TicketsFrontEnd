@@ -19,10 +19,21 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    if (this.authService.login(this.email, this.password)) {
-      this.router.navigate(['/select-role']);
-    } else {
-      this.errorMessage = 'Correo o contraseña incorrectos';
+    if (!this.email.trim() || !this.password.trim()) {
+      this.errorMessage = 'Debes completar todos los campos.';
+      return;
     }
+
+    if (this.authService.login(this.email, this.password)) {
+      this.errorMessage = '';
+      this.router.navigate(['/select-role']);
+      return;
+    }
+
+    this.errorMessage = 'Correo o contraseña incorrectos';
   }
 }
+
+
+
+
