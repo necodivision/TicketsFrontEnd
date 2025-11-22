@@ -1,2 +1,82 @@
-<h1>Staff</h1>
-<a href="/login">Atras</a>
+<div class="panel-wrapper">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo">Panel Staff</div>
+
+    <div class="actions-topbar">
+      <button class="btn" (click)="goToMyTickets()">📄 Mis Tickets</button>
+      <button class="btn logout" (click)="logout()">⛔ Cerrar Sesión</button>
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="panel-content">
+
+    <!-- FILTROS EN CARDS -->
+    <section class="filter-cards-section">
+      <div 
+        class="filter-card" 
+        *ngFor="let estado of resumenEstados"
+        [style.background]="estado.color"
+        [class.active]="filtro === estado.key"
+        (click)="aplicarFiltro(estado.key)"
+      >
+        <div class="f-icon">{{ estado.icon }}</div>
+        <div class="f-label">{{ estado.label }}</div>
+        <h2 class="f-count">{{ estado.count }}</h2>
+      </div>
+    </section>
+
+    <!-- LISTADO DE TICKETS -->
+    <section class="tickets-list">
+
+      <div class="tickets-header">
+        <div>
+          <span class="tickets-caption">Listado</span>
+          <h3>Tickets asignados</h3>
+        </div>
+
+        <span class="tickets-total">Total: {{ filteredTickets.length }}</span>
+      </div>
+
+      <!-- LISTA -->
+      <article *ngFor="let ticket of filteredTickets" class="ticket-item">
+
+        <div class="ticket-content">
+          <div class="ticket-title-row">
+            <span class="ticket-id">#{{ ticket.id }}</span>
+            <span class="ticket-title">{{ ticket.asunto }}</span>
+          </div>
+
+          <div class="ticket-meta">
+            {{ ticket.author }} · {{ ticket.date }}
+          </div>
+
+          <div class="ticket-extra">
+            <div class="extra-field">
+              <span>Estado:</span>
+              <strong>{{ ticket.status }}</strong>
+            </div>
+
+            <div class="extra-field">
+              <span>Prioridad:</span>
+              <strong>{{ ticket.prioridad }}</strong>
+            </div>
+
+            <div class="extra-field">
+              <span>Asignado:</span>
+              <strong>{{ ticket.asignado }}</strong>
+            </div>
+          </div>
+
+          <button class="btn view-btn" (click)="verDetalle(ticket.id)">
+            Ver detalle →
+          </button>
+
+        </div>
+      </article>
+    </section>
+
+  </div>
+</div>
