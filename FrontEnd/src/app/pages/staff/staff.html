@@ -37,7 +37,7 @@
           <h3>Tickets asignados</h3>
         </div>
 
-        <span class="tickets-total">Total: {{ filteredTickets.length }}</span>
+        <span class="tickets-total">Total: {{ filteredTickets?.length || 0 }}</span>
       </div>
 
       <!-- LISTA -->
@@ -50,23 +50,23 @@
           </div>
 
           <div class="ticket-meta">
-            {{ ticket.author }} · {{ ticket.date }}
+            {{ ticket.author }} · {{ ticket.date || 'Sin fecha' }}
           </div>
 
           <div class="ticket-extra">
             <div class="extra-field">
               <span>Estado:</span>
-              <strong>{{ ticket.status }}</strong>
+              <strong>{{ ticket.status || 'Abierto' }}</strong>
             </div>
 
             <div class="extra-field">
               <span>Prioridad:</span>
-              <strong>{{ ticket.prioridad }}</strong>
+              <strong>{{ ticket.prioridad || 'Normal' }}</strong>
             </div>
 
             <div class="extra-field">
               <span>Asignado:</span>
-              <strong>{{ ticket.asignado }}</strong>
+              <strong>{{ ticket.asignado || 'Sin asignar' }}</strong>
             </div>
           </div>
 

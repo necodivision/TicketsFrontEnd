@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {}
 
-
+export const appConfig = {
+  providers: [
+    provideHttpClient()
+  ]
+};

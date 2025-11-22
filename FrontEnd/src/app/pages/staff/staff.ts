@@ -1,70 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-import { TicketService, Ticket } from '../../services/ticket.service';
-import { FormsModule } from '@angular/forms'; // ← NECESARIO para evitar NG8002
+import { Router } from '@angular/router';
+import { TicketService, Ticket } from '../../../services/ticket.service';
 
 @Component({
   selector: 'app-staff',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule], // ← AÑADIDO
+  imports: [CommonModule],
   templateUrl: './staff.html',
-  styleUrls: ['./staff.css'],
+  styleUrls: ['./staff.css']
 })
 export class Staff implements OnInit {
 
-  tickets: Ticket[] = [];
-  filteredTickets: Ticket[] = [];
+  private router = inject(Router);
+  private ticketService = inject(TicketService);
 
-  filtro: string = "todos";
+  tickets: Ticket[] = [];             // Todos los tickets traídos de la API
+  filteredTickets: Ticket[] = [];     // Tickets filtrados según estado
+  filtro: 'Abierto' | 'En proceso' | 'Resuelto' | 'Todos' = 'Todos';
 
+  // Resumen de estados para filtros
   resumenEstados = [
-    { key: 'todos', label: 'Todos', icon: '📋', color: '#415E72', count: 0 },
-    { key: 'Abierto', label: 'Abiertos', icon: '🏷️', color: '#BCCC9A', count: 0 },
-    { key: 'En proceso', label: 'En proceso', icon: '🔨', color: '#EAE7C6', count: 0 },
-    { key: 'Resuelto', label: 'Resueltos', icon: '✔️', color: '#FFC29B', count: 0 },
-    { key: 'Pausado', label: 'Pausados', icon: '⏸️', color: '#D1E8E4', count: 0 },
-    { key: 'Postergado', label: 'Postergados', icon: '⏹️', color: '#FFD9C0', count: 0 },
+    { key: 'Todos', label: 'Todos', count: 0, color: '#888', icon: '📋' },
+    { key: 'Abierto', label: 'Abiertos', count: 0, color: '#f39c12', icon: '🟢' },
+    { key: 'En proceso', label: 'En Proceso', count: 0, color: '#3498db', icon: '🟡' },
+    { key: 'Resuelto', label: 'Resueltos', count: 0, color: '#2ecc71', icon: '✅' },
   ];
 
-  constructor(private ticketService: TicketService, private router: Router) {}
-
   ngOnInit() {
-    this.tickets = this.ticketService.list();
-    this.filteredTickets = [...this.tickets];
-
-    this.updateResumen();
+    this.loadTickets();
   }
 
-  updateResumen() {
-    this.resumenEstados.forEach(r => {
-      if (r.key === 'todos') {
-        r.count = this.tickets.length;
-      } else {
-        r.count = this.tickets.filter(t => t.status === r.key).length;
+  // Cargar tickets desde backend
+  loadTickets() {
+    this.ticketService.list().subscribe({
+      next: (data) => {
+        this.tickets = data;
+        this.actualizarFiltros();
+        this.aplicarFiltro(this.filtro); // inicializar filteredTickets
+      },
+      error: (err) => {
+        console.error('Error al cargar tickets:', err);
+        this.tickets = [];
+        this.filteredTickets = [];
       }
     });
   }
 
-  aplicarFiltro(estado: string) {
-    this.filtro = estado;
+  // Actualizar conteo de tickets en resumen
+  actualizarFiltros() {
+    this.resumenEstados.forEach(estado => {
+      if (estado.key === 'Todos') {
+        estado.count = this.tickets.length;
+      } else {
+        estado.count = this.tickets.filter(t => t.status === estado.key).length;
+      }
+    });
+  }
 
-    if (estado === 'todos') {
+  // Aplicar filtro por estado
+  aplicarFiltro(key: 'Abierto' | 'En proceso' | 'Resuelto' | 'Todos') {
+    this.filtro = key;
+    if (key === 'Todos') {
       this.filteredTickets = [...this.tickets];
     } else {
-      this.filteredTickets = this.tickets.filter(t => t.status === estado);
+      this.filteredTickets = this.tickets.filter(t => t.status === key);
     }
   }
 
-  verDetalle(id: number) {
-    this.router.navigate(['/staff/ticket', id]);
-  }
-
+  // Navegación
   goToMyTickets() {
-    this.router.navigate(['/user/my-tickets']);
+    this.router.navigate(['/user/my-tickets']); // ajusta según tu ruta real
   }
 
   logout() {
-    this.router.navigate(['/select-role']);
+    this.router.navigate(['/select-role']); // ajusta según tu ruta de logout
+  }
+
+  verDetalle(ticketId: number) {
+    // Redirigir a detalle del ticket
+    this.router.navigate(['/staff/ticket', ticketId]); // ajusta según tu ruta de detalle
   }
 }

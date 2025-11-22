@@ -28,33 +28,38 @@
       <div class="card-body">
         <form [formGroup]="ticketForm" (ngSubmit)="submitTicket()">
 
-          <label>Asunto</label>
-          <input type="text" formControlName="asunto" placeholder="Ej: Error en mi cuenta">
+          <!-- Asunto -->
+          <label for="asunto">Asunto</label>
+          <input id="asunto" type="text" formControlName="asunto" placeholder="Ej: Error en mi cuenta">
           <div class="error" *ngIf="ticketForm.get('asunto')?.invalid && (ticketForm.get('asunto')?.touched || ticketForm.get('asunto')?.dirty)">
             El asunto es obligatorio
           </div>
 
-          <label>Descripción</label>
-          <textarea rows="5" formControlName="descripcion" placeholder="Describe tu situación..."></textarea>
+          <!-- Descripción -->
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" rows="5" formControlName="descripcion" placeholder="Describe tu situación..."></textarea>
           <div class="error" *ngIf="ticketForm.get('descripcion')?.invalid && (ticketForm.get('descripcion')?.touched || ticketForm.get('descripcion')?.dirty)">
             La descripción es obligatoria
           </div>
 
-          <label>Nombre</label>
-          <input type="text" formControlName="author" placeholder="Tu nombre">
+          <!-- Author -->
+          <label for="author">Nombre</label>
+          <input id="author" type="text" formControlName="author" placeholder="Tu nombre">
           <div class="error" *ngIf="ticketForm.get('author')?.invalid && (ticketForm.get('author')?.touched || ticketForm.get('author')?.dirty)">
             El nombre es obligatorio
           </div>
 
-          <label>Teléfono</label>
-          <input type="tel" formControlName="telefono" placeholder="+56 9 1234 5678">
+          <!-- Teléfono -->
+          <label for="telefono">Teléfono</label>
+          <input id="telefono" type="tel" formControlName="telefono" placeholder="+56 9 1234 5678">
           <div class="error" *ngIf="ticketForm.get('telefono')?.invalid && (ticketForm.get('telefono')?.touched || ticketForm.get('telefono')?.dirty)">
             Ingresa un teléfono válido
           </div>
 
-          <label>Ubicación</label>
-          <select formControlName="ubicacion">
-            <option value="" disabled selected>Selecciona una opción</option>
+          <!-- Ubicación -->
+          <label for="ubicacion">Ubicación</label>
+          <select id="ubicacion" formControlName="ubicacion">
+            <option value="">Selecciona una opción</option>
             <option value="Placeholder 1">Placeholder 1</option>
             <option value="Placeholder 2">Placeholder 2</option>
           </select>
@@ -62,6 +67,7 @@
             La ubicación es obligatoria
           </div>
 
+          <!-- Botón enviar -->
           <button class="btn submit" type="submit" [disabled]="ticketForm.invalid">
             Enviar Ticket
           </button>

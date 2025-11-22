@@ -1,61 +1,37 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Ticket {
-  id: number;
+  id?: number;
   asunto: string;
   descripcion: string;
   author: string;
   telefono: string;
   ubicacion: string;
-  date: string;
-  status: 'Abierto' | 'En proceso' | 'Resuelto';
+  date?: string;
+  status?: 'Abierto' | 'En proceso' | 'Resuelto';
 }
 
 @Injectable({ providedIn: 'root' })
 export class TicketService {
 
-  private storageKey = 'tickets_app_data';
+  private api = 'http://localhost:3000/api/tickets'; // cambia si tu backend usa otra URL
 
-  constructor() {
-    if (!localStorage.getItem(this.storageKey)) {
-      localStorage.setItem(this.storageKey, JSON.stringify([]));
-    }
+  constructor(private http: HttpClient) {}
+
+  // ====== CREAR TICKET EN LA API ======
+  add(data: Ticket): Observable<Ticket> {
+    return this.http.post<Ticket>(this.api, data);
   }
 
-  private getAll(): Ticket[] {
-    return JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+  // ====== OBTENER TODOS LOS TICKETS ======
+  list(): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(this.api);
   }
 
-  private saveAll(list: Ticket[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(list));
-  }
-
-  add(data: any): Ticket {
-    const list = this.getAll();
-    const newId = list.length > 0 ? Math.max(...list.map(t => t.id)) + 1 : 1;
-
-    const newTicket: Ticket = {
-      id: newId,
-      asunto: data.asunto,
-      descripcion: data.descripcion,
-      author: data.author,
-      telefono: data.telefono,
-      ubicacion: data.ubicacion,
-      status: 'Abierto',
-      date: new Date().toLocaleString()
-    };
-
-    list.push(newTicket);
-    this.saveAll(list);
-
-    return newTicket;
-  }
-
-  list(): Ticket[] {
-    return this.getAll();
-  }
-
-  getById(id: number): Ticket | undefined {
-    return this.getAll().find(t => t.id === id);
+  // ====== OBTENER UN TICKET POR ID ======
+  getById(id: number): Observable<Ticket> {
+    return this.http.get<Ticket>(`${this.api}/${id}`);
   }
 }
