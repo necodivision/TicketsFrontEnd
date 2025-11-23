@@ -1,0 +1,80 @@
+.select-role-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #2c3142 50%, #ffffff 50%);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.role-card {
+  background-color: #ffffff;
+  padding: 40px 60px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.role-card h1 {
+  font-size: 26px;
+  color: #2c3142;
+  margin-bottom: 10px;
+}
+
+.email {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.role-box {
+  background-color: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.role-box p {
+  margin: 0;
+  color: #444;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.role {
+  display: inline-block;
+  background-color: #2c3142;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.btn-continue {
+  width: 100%;
+  background-color: #2c3142;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-bottom: 15px;
+}
+
+.btn-continue:hover {
+  background-color: #3b4056;
+}
+
+.btn-logout {
+  background-color: transparent;
+  border: none;
+  color: #e63946;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -1,27 +1,39 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['./login.css'],
+  imports: [RouterModule, FormsModule, CommonModule]
 })
-export class Login {
+export class LoginComponent {
   email = '';
   password = '';
+  errorMessage = '';
 
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  login() {
-    if (this.email === 'admin@example.com' && this.password === '1234') {
-      alert('Inicio de sesión exitoso');
-      this.router.navigate(['/home']);
-    } else {
-      alert('Credenciales incorrectas');
+  onSubmit() {
+    if (!this.email.trim() || !this.password.trim()) {
+      this.errorMessage = 'Debes completar todos los campos.';
+      return;
     }
+
+    if (this.authService.login(this.email, this.password)) {
+      this.errorMessage = '';
+      this.router.navigate(['/select-role']);
+      return;
+    }
+
+    this.errorMessage = 'Correo o contraseña incorrectos';
   }
 }
+
+
+
+

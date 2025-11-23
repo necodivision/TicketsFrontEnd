@@ -1,0 +1,109 @@
+<div class="panel-staff-wrapper">
+  <section class="topbar">
+    <div class="topbar-title">
+      <span class="breadcrumb">Staff · Panel</span>
+      <h1>Panel Staff</h1>
+    </div>
+    <div class="user-info">
+      <div class="user-greeting">
+        <span>Hola, Staff</span>
+      </div>
+      <div class="avatar">S</div>
+    </div>
+  </section>
+
+  <section class="resumen-section">
+    <div class="resumen-header">
+      <div>
+        <span class="total-label">Total asignados:</span>
+        <strong>{{ tickets.length }} Tickets</strong>
+      </div>
+      <div class="resumen-actions">
+        <button type="button" class="btn btn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M7 10l5 5 5-5" stroke="#2a7be4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 4v10" stroke="#2a7be4" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M6 20h12" stroke="#2a7be4" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          <span>Exportar</span>
+        </button>
+        <button type="button" class="btn btn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M4 7h16M7 12h10M10 17h4" stroke="#2a7be4" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          <span>Filtros</span>
+        </button>
+        <button type="button" class="btn-circle" aria-label="Buscar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="6" stroke="#1d2433" stroke-width="1.8" />
+            <path d="M17 17l3 3" stroke="#1d2433" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="resumen-grid">
+      <div class="resumen-card" *ngFor="let estado of resumenEstados">
+        <div class="card-icon">
+          <img [src]="'/' + getStatusStyle(estado.key).iconSrc" [alt]="estado.label" />
+        </div>
+        <div class="card-body">
+          <p>{{ estado.label }}</p>
+          <h2>{{ estado.count }}</h2>
+        </div>
+        <button type="button" class="link" (click)="verTodos(estado.key)">Ver Todos</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="tickets-list">
+    <div class="tickets-header">
+      <div>
+        <span class="tickets-caption">Listado</span>
+        <h3>Tickets asignados</h3>
+      </div>
+    <span class="tickets-total">Total: {{ tickets.length }}</span>
+    </div>
+
+    <article *ngFor="let ticket of tickets" class="ticket-item">
+      <div class="ticket-icon">
+        <img [src]="'/' + getStatusStyle(ticket.status).iconSrc" [alt]="ticket.status" />
+      </div>
+
+      <div class="ticket-content">
+        <div class="ticket-title-row">
+          <a class="ticket-id" href="javascript:void(0)">{{ ticket.id }}</a>
+          <span class="ticket-title">{{ ticket.asunto }}</span>
+        </div>
+        <div class="ticket-meta">
+          {{ ticket.author }} · {{ ticket.date }}
+        </div>
+
+        <div class="ticket-extra">
+          <div class="extra-field">
+            <span>Estado:</span>
+            <span class="status-pill"
+                  [ngStyle]="{
+                    'background-color': getStatusStyle(ticket.status).badgeBg,
+                    'color': getStatusStyle(ticket.status).badgeColor
+                  }">
+              {{ getStatusStyle(ticket.status).label }}
+            </span>
+          </div>
+          <div class="extra-field">
+            <span>Prioridad:</span>
+            <span>{{ ticket.prioridad || 'Sin prioridad' }}</span>
+          </div>
+          <div class="extra-field">
+            <span>Unidad:</span>
+            <span>{{ ticket.unidad || 'Sin asignar' }}</span>
+          </div>
+          <div class="extra-field">
+            <span>Asignado:</span>
+            <span>{{ ticket.asignado || 'Sin asignar' }}</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+</div>

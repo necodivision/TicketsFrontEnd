@@ -1,11 +1,14 @@
 <div class="login-wrapper">
   <!-- IZQUIERDA -->
   <div class="login-left">
+
     <div class="logo-container">
-      <img
-        src="https://hospitalclinicomagallanes.cl/wp-content/uploads/2019/09/IMG_5211.jpg"
-        alt="Hospital Clínico de Magallanes"
-      />
+      <div class="hospital-badge">
+        <span class="badge-icon">
+          <img src="/favicon.svg" alt="Hospital Clínico de Magallanes" />
+        </span>
+        <span class="badge-text">Hospital Clínico de Magallanes</span>
+      </div>
     </div>
 
     <div class="welcome-text">
@@ -19,21 +22,25 @@
 
     <img
       class="hospital-img"
-      src="https://hospitalclinicomagallanes.cl/wp-content/uploads/2019/09/IMG_5211.jpg"
+      src="/hospital.png"
       alt="Hospital Clínico de Magallanes"
+      width="1600"
+      height="1067"
+      loading="eager"
+      decoding="async"
     />
   </div>
 
   <!-- DERECHA -->
   <div class="login-right">
     <div class="form-container">
-      <h2>Bienvenido de nuevo!</h2>
+      <h2>¡Bienvenido de nuevo!</h2>
       <p>
         Accede para gestionar tus tickets y mantener el control de tus
         solicitudes.
       </p>
 
-      <form (ngSubmit)="login()" #loginForm="ngForm">
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <label for="email">Correo electrónico</label>
         <input
           type="email"
@@ -54,11 +61,11 @@
           placeholder="Escribe tu contraseña"
         />
 
-        <div class="options">
-          <a href="#">¿Olvidaste tu contraseña?</a>
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
         </div>
 
-        <button type="submit" [disabled]="!loginForm.form.valid">
+        <button type="submit">
           Iniciar sesión
         </button>
       </form>
@@ -69,3 +76,5 @@
     </div>
   </div>
 </div>
+
+
