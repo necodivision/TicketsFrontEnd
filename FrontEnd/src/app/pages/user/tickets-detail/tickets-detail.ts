@@ -1,31 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TicketService, Ticket } from '../../../services/ticket.service';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tickets-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './tickets-detail.html',
   styleUrls: ['./tickets-detail.css']
 })
-export class TicketsDetailComponent implements OnInit {
+export class TicketsDetail implements OnInit {
+  private route = inject(ActivatedRoute);
+  private ticketService = inject(TicketService);
+  private router = inject(Router);
 
   ticket?: Ticket;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private ticketService: TicketService
-  ) {}
-
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.ticket = this.ticketService.getById(id);
-
-    if (!this.ticket) {
-      this.router.navigate(['/user/tickets']);
+    if (id) {
+      this.ticketService.getById(id).subscribe({
+        next: t => this.ticket = t,
+        error: err => console.error(err)
+      });
     }
   }
 

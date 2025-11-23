@@ -7,30 +7,28 @@ export interface Ticket {
   asunto: string;
   descripcion: string;
   author: string;
-  telefono: string;
-  ubicacion: string;
+  telefono?: string;
+  ubicacion?: string;
   date?: string;
   status?: 'Abierto' | 'En proceso' | 'Resuelto';
+  prioridad?: string;
+  asignado?: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class TicketService {
-
-  private api = 'http://localhost:3000/api/tickets'; // cambia si tu backend usa otra URL
+  private api = 'http://localhost:3000/api/tickets';
 
   constructor(private http: HttpClient) {}
 
-  // ====== CREAR TICKET EN LA API ======
-  add(data: Ticket): Observable<Ticket> {
+  add(data: Partial<Ticket>): Observable<Ticket> {
     return this.http.post<Ticket>(this.api, data);
   }
 
-  // ====== OBTENER TODOS LOS TICKETS ======
   list(): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(this.api);
   }
 
-  // ====== OBTENER UN TICKET POR ID ======
   getById(id: number): Observable<Ticket> {
     return this.http.get<Ticket>(`${this.api}/${id}`);
   }

@@ -1,14 +1,11 @@
 <div class="tickets-wrapper">
 
   <div class="ticket-card">
-
-    <!-- HEADER -->
     <div class="card-header tickets-header">
       <button class="back-btn" (click)="backToPanel()">← Volver</button>
       <span>Mis Tickets</span>
     </div>
 
-    <!-- FILTROS -->
     <div class="filters">
       <select [(ngModel)]="filterStatus" (change)="applyFilter()">
         <option value="Todos">Todos</option>
@@ -18,67 +15,38 @@
       </select>
     </div>
 
-    <!-- CUERPO -->
     <div class="card-body">
-
       <div class="total">
-        Mostrando: <strong>{{ filteredTickets.length }}</strong> de {{ tickets.length }}
+        Mostrando <strong>{{ filteredTickets.length }}</strong> de {{ tickets.length }}
       </div>
 
       <div class="list">
-        
-        <div class="ticket"
-             *ngFor="let t of paginatedTickets">
-
-          <!-- IZQUIERDA -->
+        <div class="ticket" *ngFor="let t of paginatedTickets">
           <div class="left">
             <div class="icon">🎫</div>
-
             <div>
-              <div class="id-title">
-                <strong>{{ t.asunto }}</strong>
-              </div>
-
+              <div class="id-title"><strong>{{ t.asunto }}</strong></div>
               <div class="sub">
-                Estado:
-                <span 
-                  class="estado"
-                  [ngClass]="{
-                    'abierto': t.status === 'Abierto',
-                    'proceso': t.status === 'En proceso',
-                    'resuelto': t.status === 'Resuelto'
-                  }">
-                  {{ t.status }}
-                </span>
+                Estado: <span [ngClass]="{
+                  'abierto': t.status==='Abierto',
+                  'proceso': t.status==='En proceso',
+                  'resuelto': t.status==='Resuelto'
+                }">{{ t.status }}</span>
               </div>
-
-              <div class="fecha">
-                Fecha: {{ t.date }}
-              </div>
+              <div class="fecha">Fecha: {{ t.date || 'Sin fecha' }}</div>
             </div>
           </div>
-
-          <!-- DERECHA -->
           <div class="right">
-            <button class="btn-ver" (click)="openTicket(t)">
-              Ver ticket
-            </button>
+            <button class="btn-ver" (click)="openTicket(t)">Ver ticket</button>
           </div>
-
         </div>
-
       </div>
 
-      <!-- PAGINACIÓN -->
       <div class="pagination" *ngIf="totalPages > 1">
         <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-        
         <span>Página {{ currentPage }} de {{ totalPages }}</span>
-
         <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
       </div>
-
     </div>
   </div>
-
 </div>

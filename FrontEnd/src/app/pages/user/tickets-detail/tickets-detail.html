@@ -1,61 +1,13 @@
-<div class="detail-wrapper">
+<div class="ticket-detail-wrapper">
+  <button class="back-btn" (click)="back()">← Volver</button>
 
-  <div class="detail-card">
-
-    <div class="card-header">
-      <button class="back-btn" (click)="back()">←</button>
-      <span>Detalle de Ticket</span>
-    </div>
-
-    <div class="card-body">
-
-      <div class="info-grid">
-
-        <div>
-          <div class="label">Usuario</div>
-          <div class="value">{{ ticket?.author || '—' }}</div>
-
-          <div class="label">Teléfono</div>
-          <div class="value">{{ ticket?.telefono || '—' }}</div>
-
-          <div class="label">Ubicación</div>
-          <div class="value">{{ ticket?.ubicacion || '—' }}</div>
-        </div>
-
-        <div>
-          <div class="label">Ticket ID</div>
-          <div class="value">{{ ticket?.id }}</div>
-
-          <div class="label">Fecha</div>
-          <div class="value">{{ ticket?.date }}</div>
-        </div>
-
-        <div>
-          <div class="label">Estado</div>
-          <div class="value status"
-            [ngClass]="{
-              'abierto': ticket?.status==='Abierto',
-              'proceso': ticket?.status==='En proceso',
-              'resuelto': ticket?.status==='Resuelto'
-            }">
-            {{ ticket?.status }}
-          </div>
-        </div>
-
-      </div>
-
-      <div class="box">
-        <div class="box-title">Asunto</div>
-        <div class="box-body">{{ ticket?.asunto }}</div>
-      </div>
-
-      <div class="box">
-        <div class="box-title">Detalles</div>
-        <div class="box-body">{{ ticket?.descripcion }}</div>
-      </div>
-
-    </div>
-
+  <div *ngIf="ticket" class="ticket-card">
+    <h2>{{ ticket.asunto }}</h2>
+    <p><strong>Autor:</strong> {{ ticket.author }}</p>
+    <p><strong>Descripción:</strong> {{ ticket.descripcion }}</p>
+    <p><strong>Teléfono:</strong> {{ ticket.telefono || 'Sin teléfono' }}</p>
+    <p><strong>Ubicación:</strong> {{ ticket.ubicacion || 'Sin ubicación' }}</p>
+    <p><strong>Estado:</strong> {{ ticket.status || 'Abierto' }}</p>
+    <p><strong>Fecha:</strong> {{ ticket.date || 'Sin fecha' }}</p>
   </div>
-
 </div>

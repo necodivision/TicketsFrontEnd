@@ -11,9 +11,3 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes)
   ]
 };
-
-export const appConfig = {
-  providers: [
-    provideHttpClient()
-  ]
-};

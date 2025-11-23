@@ -16,33 +16,53 @@
     <!-- FILTROS EN CARDS -->
     <section class="filter-cards-section">
       <div 
-        class="filter-card" 
-        *ngFor="let estado of resumenEstados"
-        [style.background]="estado.color"
-        [class.active]="filtro === estado.key"
-        (click)="aplicarFiltro(estado.key)"
-      >
-        <div class="f-icon">{{ estado.icon }}</div>
-        <div class="f-label">{{ estado.label }}</div>
-        <h2 class="f-count">{{ estado.count }}</h2>
+        class="filter-card"
+        [class.active]="filtro === 'Todos'"
+        (click)="aplicarFiltro('Todos')">
+        <div class="f-icon">📄</div>
+        <div class="f-label">Todos</div>
+        <h2 class="f-count">{{ tickets.length }}</h2>
+      </div>
+
+      <div 
+        class="filter-card"
+        [class.active]="filtro === 'Abierto'"
+        (click)="aplicarFiltro('Abierto')">
+        <div class="f-icon">🟢</div>
+        <div class="f-label">Abiertos</div>
+        <h2 class="f-count">{{ resumenEstados().Abierto }}</h2>
+      </div>
+
+      <div 
+        class="filter-card"
+        [class.active]="filtro === 'En proceso'"
+        (click)="aplicarFiltro('En proceso')">
+        <div class="f-icon">🟡</div>
+        <div class="f-label">En proceso</div>
+        <h2 class="f-count">{{ resumenEstados()['En proceso'] }}</h2>
+      </div>
+
+      <div 
+        class="filter-card"
+        [class.active]="filtro === 'Resuelto'"
+        (click)="aplicarFiltro('Resuelto')">
+        <div class="f-icon">✅</div>
+        <div class="f-label">Resueltos</div>
+        <h2 class="f-count">{{ resumenEstados().Resuelto }}</h2>
       </div>
     </section>
 
     <!-- LISTADO DE TICKETS -->
     <section class="tickets-list">
-
       <div class="tickets-header">
         <div>
           <span class="tickets-caption">Listado</span>
           <h3>Tickets asignados</h3>
         </div>
-
-        <span class="tickets-total">Total: {{ filteredTickets?.length || 0 }}</span>
+        <span class="tickets-total">Total: {{ filteredTickets.length }}</span>
       </div>
 
-      <!-- LISTA -->
       <article *ngFor="let ticket of filteredTickets" class="ticket-item">
-
         <div class="ticket-content">
           <div class="ticket-title-row">
             <span class="ticket-id">#{{ ticket.id }}</span>
@@ -58,12 +78,10 @@
               <span>Estado:</span>
               <strong>{{ ticket.status || 'Abierto' }}</strong>
             </div>
-
             <div class="extra-field">
               <span>Prioridad:</span>
               <strong>{{ ticket.prioridad || 'Normal' }}</strong>
             </div>
-
             <div class="extra-field">
               <span>Asignado:</span>
               <strong>{{ ticket.asignado || 'Sin asignar' }}</strong>
@@ -73,7 +91,6 @@
           <button class="btn view-btn" (click)="verDetalle(ticket.id)">
             Ver detalle →
           </button>
-
         </div>
       </article>
     </section>

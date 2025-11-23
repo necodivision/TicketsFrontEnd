@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+// ticket-form.ts conectado
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TicketService } from '../../../services/ticket.service';
+import { TicketService, Ticket } from '../../../services/ticket.service';
 
 @Component({
   selector: 'app-ticket-form',
@@ -11,27 +12,32 @@ import { TicketService } from '../../../services/ticket.service';
   styleUrls: ['./ticket-form.css'],
 })
 export class TicketForm {
+  private ticketService = inject(TicketService);
 
-  model = {
+  model: Partial<Ticket> = {
     asunto: '',
     descripcion: '',
     author: '',
-    email: ''
+    telefono: '',
+    ubicacion: ''
   };
 
-  constructor(private ticketService: TicketService) {}
-
   submit() {
-    this.ticketService.add(this.model);
+    // Validación simple
+    if (!this.model.asunto || !this.model.descripcion || !this.model.author) return;
 
-    alert('Ticket enviado correctamente');
-
-    // limpiar
-    this.model = {
-      asunto: '',
-      descripcion: '',
-      author: '',
-      email: ''
-    };
+    this.ticketService.add(this.model as Ticket).subscribe({
+      next: (ticket) => {
+        alert('Ticket enviado correctamente');
+        this.model = {
+          asunto: '',
+          descripcion: '',
+          author: '',
+          telefono: '',
+          ubicacion: ''
+        };
+      },
+      error: (err) => console.error('Error al enviar ticket:', err)
+    });
   }
 }

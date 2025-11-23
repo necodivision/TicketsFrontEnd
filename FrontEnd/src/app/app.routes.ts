@@ -32,20 +32,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/user/user-panel/user-panel').then(m => m.UserPanel)
       },
-
       {
         path: 'my-tickets',
         loadComponent: () =>
           import('./pages/user/my-tickets/my-tickets').then(m => m.MyTickets)
       },
-
       {
         path: 'ticket/:id',
         loadComponent: () =>
-          import('./pages/user/tickets-detail/tickets-detail')
-            .then(m => m.TicketsDetailComponent)
+          import('./pages/user/tickets-detail/tickets-detail').then(m => m.TicketsDetail)
       },
-
       { path: '', redirectTo: 'panel', pathMatch: 'full' }
     ]
   },
@@ -55,18 +51,6 @@ export const routes: Routes = [
     path: 'staff',
     loadComponent: () =>
       import('./pages/staff/staff').then(m => m.Staff)
-  },
-
-  {
-    path: 'admin',
-    loadComponent: () =>
-      import('./pages/admin/admin').then(m => m.Admin)
-  },
-
-  {
-    path: 'super',
-    loadComponent: () =>
-      import('./pages/admin/admin').then(m => m.Admin)
   },
 
   { path: '**', redirectTo: 'login' }
